@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeatMap</title>
+    <link rel="stylesheet" href="../static/index.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap Timepicker CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css">
+
+    <!-- Bootstrap Timepicker JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
+
+    <!-- Include Bootstrap datetimepicker CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+    <!-- Include Bootstrap datetimepicker JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+</head>
+<body>
+    <div class="grid-container">
+        <header>
+            <!-- Your header content goes here -->
+        </header>
+        <div class="sidebar" id="sidebar">
+            <form id="norway-form" method='POST' action="/norway">
+                <div class="container mt-5">
+                    <label for="country">Select Country:</label>
+                    <select name='norway' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                        {% for country in all_countries %}
+                            <option value="{{country}}" {% if selected == country %}selected{% endif %}>{{country}}</option>
+                        {% endfor %} 
+                    </select>
+                </div>
+                <div class="container mt-5">
+                    <label for="timeInput">Från:</label>
+                    <input type="time" name="from_time" id="timeInput" class="form-control">
+                </div>
+                <div class="container mt-5">
+                    <label for="timeInput2">Till:</label>
+                    <input type="time" name="to_time" id="timeInput2" class="form-control">
+                </div>
+                <div class="div-groups">
+                    <input type="submit" name="Hämta" value="Hämta"/>
+                </div>
+            </form>
+        </div>
+        <main class="content">
+            {{ map|safe }}
+            <!-- Your main content goes here -->
+        </main>
+    </div>
+
+    <!-- Your datetimepicker initialization script -->
+    <script>
+        $(document).ready(function() {
+            // Initialize datetimepicker for the first input
+            $('#timeInput').datetimepicker({
+                format: 'HH:mm',  // Assuming you want a time format
+            });
+
+            // Initialize datetimepicker for the second input
+            $('#timeInput2').datetimepicker({
+                format: 'HH:mm',  // Assuming you want a time format
+            });
+        });
+    </script>
+</body>
+</html>

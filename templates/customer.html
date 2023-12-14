@@ -1,0 +1,24 @@
+{% extends "layout.html" %} 
+<!--This uses the layout as a blueprint. In here you define the blocks and fill it with content -->
+
+{% block sidebar %}
+
+<div class="div-groups">
+    <form id="city" method='POST' action="/customer/{{choosen_city.city_id}}">
+        <select name='kommun' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <option value="{{choosen_city.city}}" {% if selected == choosen_city.city %}selected{% endif %}>{{choosen_city.city}}</option>
+        </select>
+    </div>
+    
+        <div class="div-groups">
+        
+        </div>
+        <input name="time" type="range" id="rangeSlider" min="0" max="4" step="1" value="{{ selected_time }}">
+        <div id="sliderValue">{{label_value}}</div>
+        
+    <div class="div-groups">
+        <input type="submit" name="Hämta" value="Hämta"/>
+    </div>
+    </form>
+
+    {%endblock%}

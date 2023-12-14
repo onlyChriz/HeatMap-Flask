@@ -1,0 +1,51 @@
+{% extends "layout.html" %} 
+<!--This uses the layout as a blueprint. In here you define the blocks and fill it with content -->
+
+{% block sidebar %}
+<form id="city" method='POST' action="/norway">
+    <select name='kommun' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <option value="Väg 80" >Väg 80</option>
+    </select>
+
+    <div class="div-groups-norway">
+        <div class="container-norway">
+            <label for="timeInput">Från:</label>
+            <input type="time" name="from_time" id="timeInput" class="form-control" value="{{ from_time }}">
+        </div>
+        <div class="container-norway">
+            <label for="timeInput2">Till:</label>
+            <input type="time" name="to_time" id="timeInput2" class="form-control" value="{{ to_time }}">
+        </div>
+    </div>
+
+    <div class="div-groups-norway">
+        <input type="button" id="submitBtn" value="Hämta vägsträcka">
+    </div>
+</form>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var submitBtn = document.getElementById('submitBtn');
+
+        if (submitBtn) {
+            submitBtn.addEventListener('click', function() {
+                var start_time = document.getElementById('timeInput').value;
+                var end_time = document.getElementById('timeInput2').value;
+                var startTimeObj = new Date('1970-01-01 ' + start_time);
+                var endTimeObj = new Date('1970-01-01 ' + end_time);
+                if (start_time === "" || end_time === "") {
+                    alert("Start time and end time are required!");
+                } 
+                if(startTimeObj >= endTimeObj){
+                    alert("Start time need to be less then end time")
+                }
+                else {
+                    // Submit the form
+                    document.getElementById('city').submit();
+                }
+            });
+        }
+    });
+</script>
+{%endblock%}
+
+<script src="scripts\scripts.js"></script>
